@@ -150,15 +150,10 @@
       color: rgba(246,243,248,.86);
       text-wrap: balance;
     }
-    .lead {
-      margin: 40px auto 0; max-width: 620px;
-      font-size: clamp(16px, 1.6vw, 18px); color: var(--muted);
-    }
-    .lead strong { color: var(--text); font-weight: 500; }
 
     /* Scanner mock */
     .scanner {
-      margin: 36px auto 0; max-width: 560px;
+      margin: 48px auto 0; max-width: 560px;
       display: flex; gap: 8px; padding: 8px;
       border-radius: 16px;
       border: 1px solid var(--line);
@@ -541,10 +536,6 @@
         <svg class="mark" role="img" aria-label="Mercury Ward logo"><use href="#mw-mark" /></svg>
         <h1 class="wordmark">Mercury Ward</h1>
         <p class="slogan">A free data privacy awareness initiative for the UK estate agency industry</p>
-        <p class="lead">
-          Enter an estate agency website. Mercury Ward will watch every request it makes and show you,
-          <strong>in plain English</strong>, where visitor data is going, who is receiving it, and what to fix.
-        </p>
         <form class="scanner" onsubmit="return false" aria-describedby="scanner-note">
           <label for="url">Estate agency website address</label>
           <div class="field">
@@ -565,10 +556,6 @@
         <div class="reveal">
           <div class="eyebrow">How it will work</div>
           <h2>See what your website <em>quietly shares</em>.</h2>
-          <p class="section-lead">
-            Most agency websites run dozens of third-party scripts: portals, CRMs, chat widgets, analytics and ad platforms.
-            Each one can see your visitors. Mercury Ward makes that traffic visible.
-          </p>
           <ol class="steps">
             <li class="step">
               <div class="n">01</div>
