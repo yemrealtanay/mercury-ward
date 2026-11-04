@@ -1,0 +1,730 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mercury Ward — Coming Soon</title>
+  <meta name="description" content="Mercury Ward is a free, open-source data privacy awareness initiative for the UK estate agency industry. Built by Iceberg Digital as part of Iceberg X." />
+  <meta name="theme-color" content="#060509" />
+  <meta property="og:title" content="Mercury Ward — Coming Soon" />
+  <meta property="og:description" content="A free data privacy awareness initiative for the UK estate agency industry. Built by Iceberg Digital." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #060509;
+      --bg-2: #0b0910;
+      --pink: #e6197d;
+      --pink-hot: #ff3d9a;
+      --pink-deep: #7a0a43;
+      --text: #f6f3f8;
+      --muted: rgba(246, 243, 248, 0.66);
+      --faint: rgba(246, 243, 248, 0.4);
+      --line: rgba(255, 255, 255, 0.08);
+      --card: rgba(255, 255, 255, 0.025);
+      --high: #ff3d7a;
+      --med: #ffb547;
+      --pass: #3ddc97;
+      --display: "Poppins", system-ui, sans-serif;
+      --body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--body);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    a { color: inherit; }
+    ::selection { background: var(--pink); color: #fff; }
+
+    .wrap { width: min(1160px, 100% - 32px); margin-inline: auto; }
+
+    /* ───────── Top bar ───────── */
+    .topbar {
+      position: absolute; inset: 0 0 auto 0; z-index: 10;
+      padding: 22px 0;
+    }
+    .topbar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .brand-mini { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .brand-mini svg { width: 26px; height: 30px; }
+    .brand-mini span {
+      font-family: var(--display); font-weight: 600; font-size: 13px;
+      letter-spacing: .28em; text-transform: uppercase;
+    }
+    .initiative {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 8px 14px 8px 12px;
+      border: 1px solid var(--line); border-radius: 999px;
+      background: rgba(255,255,255,.03);
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted);
+      text-decoration: none; white-space: nowrap;
+    }
+    .initiative svg { width: 14px; height: 13px; }
+    .initiative b { color: var(--text); font-weight: 600; }
+
+    /* ───────── Hero ───────── */
+    .hero {
+      position: relative; isolation: isolate; overflow: hidden;
+      min-height: 100svh;
+      display: grid; place-items: center;
+      padding: 110px 0 240px;
+    }
+    .hero-bg { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+    .hero-bg .base {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(55% 55% at 92% 8%, rgba(230,25,125,.42), transparent 70%),
+        radial-gradient(40% 30% at 86% 74%, rgba(255,61,154,.38), transparent 70%),
+        radial-gradient(60% 40% at 20% 100%, rgba(122,10,67,.25), transparent 70%),
+        linear-gradient(180deg, #040306 0%, #08060b 55%, #0e0710 100%);
+    }
+    .peaks {
+      position: absolute; top: -12%; right: -14%;
+      width: min(1100px, 95vw); height: auto; opacity: .8;
+      mix-blend-mode: screen;
+    }
+    .horizon {
+      position: absolute; left: 0; right: 0; bottom: 0;
+      width: 100%; height: 40%;
+    }
+    .streak { animation: drift 9s ease-in-out infinite alternate; }
+    .streak.s2 { animation-duration: 12s; animation-delay: -3s; }
+    .streak.s3 { animation-duration: 15s; animation-delay: -6s; }
+    @keyframes drift { from { transform: translateX(-2%); opacity: .75; } to { transform: translateX(2%); opacity: 1; } }
+
+    .grain {
+      position: absolute; inset: 0; opacity: .06; mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    .hero-inner { text-align: center; max-width: 900px; padding-inline: 16px; }
+
+    .soon {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 7px 16px; margin-bottom: 40px;
+      border-radius: 999px;
+      border: 1px solid rgba(230,25,125,.45);
+      background: rgba(230,25,125,.08);
+      font-size: 12px; font-weight: 600; letter-spacing: .24em; text-transform: uppercase;
+      color: #ffd2e7;
+    }
+    .soon i {
+      width: 7px; height: 7px; border-radius: 50%; background: var(--pink-hot);
+      box-shadow: 0 0 0 0 rgba(255,61,154,.7);
+      animation: pulse 2.2s infinite;
+    }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(255,61,154,.65); }
+      70% { box-shadow: 0 0 0 10px rgba(255,61,154,0); }
+      100% { box-shadow: 0 0 0 0 rgba(255,61,154,0); }
+    }
+
+    .mark {
+      width: 92px; height: 106px; display: block; margin: 0 auto 30px;
+      filter: drop-shadow(0 0 28px rgba(230,25,125,.55));
+    }
+    .wordmark {
+      margin: 0;
+      font-family: var(--display); font-weight: 600;
+      font-size: clamp(34px, 7vw, 74px);
+      line-height: 1.05;
+      letter-spacing: .2em; margin-right: -.2em; /* optical centring for tracking */
+      text-transform: uppercase;
+    }
+    .slogan {
+      margin: 22px auto 0; max-width: 760px;
+      font-size: clamp(11px, 1.35vw, 14px); font-weight: 500;
+      letter-spacing: .3em; text-transform: uppercase; line-height: 2;
+      color: rgba(246,243,248,.86);
+      text-wrap: balance;
+    }
+    .lead {
+      margin: 40px auto 0; max-width: 620px;
+      font-size: clamp(16px, 1.6vw, 18px); color: var(--muted);
+    }
+    .lead strong { color: var(--text); font-weight: 500; }
+
+    /* Scanner mock */
+    .scanner {
+      margin: 36px auto 0; max-width: 560px;
+      display: flex; gap: 8px; padding: 8px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 20px 60px -20px rgba(230,25,125,.35), inset 0 1px 0 rgba(255,255,255,.06);
+    }
+    .scanner label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+    .scanner .field {
+      flex: 1; min-width: 0; display: flex; align-items: center; gap: 10px;
+      padding: 0 12px; color: var(--faint);
+    }
+    .scanner .field svg { flex: none; width: 16px; height: 16px; }
+    .scanner input {
+      flex: 1; min-width: 0; height: 44px; border: 0; outline: 0; background: transparent;
+      color: var(--text); font: inherit; font-size: 15px;
+    }
+    .scanner input::placeholder { color: var(--faint); }
+    .scanner button {
+      flex: none; height: 44px; padding: 0 18px; border: 0; border-radius: 10px;
+      font: 600 14px/1 var(--body); color: #fff; letter-spacing: .02em;
+      background: linear-gradient(135deg, var(--pink), #b3105f);
+      opacity: .9; cursor: not-allowed;
+      box-shadow: 0 8px 24px -8px rgba(230,25,125,.8);
+    }
+    .scanner-note { margin-top: 12px; font-size: 13px; color: var(--faint); }
+
+    .scroll-cue {
+      position: absolute; left: 50%; bottom: 28px; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      font-size: 11px; letter-spacing: .3em; text-transform: uppercase; color: var(--faint);
+      text-decoration: none;
+    }
+    .scroll-cue span { width: 1px; height: 36px; background: linear-gradient(var(--pink), transparent); animation: cue 2.4s ease-in-out infinite; transform-origin: top; }
+    @keyframes cue { 0%,100% { transform: scaleY(.3); opacity: .4; } 50% { transform: scaleY(1); opacity: 1; } }
+
+    /* ───────── Sections ───────── */
+    section { position: relative; padding: 120px 0; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 12px; font-weight: 600; letter-spacing: .28em; text-transform: uppercase; color: var(--pink-hot);
+    }
+    .eyebrow::before { content: ""; width: 24px; height: 1px; background: currentColor; }
+    h2 {
+      margin: 16px 0 0;
+      font-family: var(--display); font-weight: 600;
+      font-size: clamp(28px, 4vw, 44px); line-height: 1.15; letter-spacing: -.01em;
+    }
+    h2 em { font-style: normal; background: linear-gradient(90deg, #ff6bb5, var(--pink)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .section-lead { margin: 18px 0 0; max-width: 620px; color: var(--muted); font-size: 17px; }
+
+    /* How it works */
+    .how { display: grid; grid-template-columns: 1fr 1.05fr; gap: 64px; align-items: center; }
+    .steps { list-style: none; margin: 40px 0 0; padding: 0; display: grid; gap: 14px; }
+    .step {
+      display: grid; grid-template-columns: 44px 1fr; gap: 18px; align-items: start;
+      padding: 22px; border-radius: 16px; border: 1px solid var(--line); background: var(--card);
+      transition: border-color .3s, background .3s;
+    }
+    .step:hover { border-color: rgba(230,25,125,.35); background: rgba(230,25,125,.04); }
+    .step .n {
+      width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center;
+      font: 600 15px/1 var(--display); color: var(--pink-hot);
+      background: rgba(230,25,125,.1); border: 1px solid rgba(230,25,125,.3);
+    }
+    .step h3 { margin: 2px 0 4px; font-family: var(--display); font-weight: 600; font-size: 18px; }
+    .step p { margin: 0; color: var(--muted); font-size: 15px; }
+
+    /* Report preview */
+    .report {
+      position: relative; overflow: hidden;
+      border-radius: 20px; border: 1px solid rgba(255,255,255,.1);
+      background: linear-gradient(180deg, #120d16, #0a080d);
+      box-shadow: 0 40px 100px -30px rgba(230,25,125,.45), 0 0 0 1px rgba(230,25,125,.08);
+    }
+    .report::after {
+      content: ""; position: absolute; left: 0; right: 0; top: -30%; height: 30%;
+      background: linear-gradient(180deg, transparent, rgba(230,25,125,.14), transparent);
+      border-bottom: 1px solid rgba(255,61,154,.5);
+      animation: scan 4.5s cubic-bezier(.6,0,.4,1) infinite;
+      pointer-events: none;
+    }
+    @keyframes scan { 0% { top: -30%; } 100% { top: 110%; } }
+    .report-head {
+      display: flex; align-items: center; gap: 12px; padding: 14px 18px;
+      border-bottom: 1px solid var(--line); font-size: 12px; color: var(--faint);
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    }
+    .report-head .dots { display: flex; gap: 6px; }
+    .report-head .dots i { width: 9px; height: 9px; border-radius: 50%; background: rgba(255,255,255,.14); }
+    .report-head .tag {
+      margin-left: auto; padding: 3px 8px; border-radius: 6px;
+      font-family: var(--body); font-size: 10px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase;
+      color: #ffd2e7; background: rgba(230,25,125,.14);
+    }
+    .report-body { padding: 22px 22px 18px; }
+    .report-url { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    .report-url strong { font-family: var(--display); font-weight: 600; font-size: 17px; }
+    .report-url small { color: var(--faint); font-size: 12px; }
+    .chips { display: flex; gap: 8px; margin: 16px 0 18px; flex-wrap: wrap; }
+    .chip { padding: 5px 10px; border-radius: 8px; font-size: 12px; font-weight: 600; border: 1px solid; }
+    .chip.h { color: var(--high); border-color: rgba(255,61,122,.35); background: rgba(255,61,122,.08); }
+    .chip.m { color: var(--med);  border-color: rgba(255,181,71,.35); background: rgba(255,181,71,.07); }
+    .chip.p { color: var(--pass); border-color: rgba(61,220,151,.3);  background: rgba(61,220,151,.07); }
+    .finding {
+      display: grid; grid-template-columns: 10px 1fr auto; gap: 14px; align-items: center;
+      padding: 13px 0; border-top: 1px solid var(--line);
+    }
+    .finding i { width: 8px; height: 8px; border-radius: 50%; }
+    .finding.h i { background: var(--high); box-shadow: 0 0 12px var(--high); }
+    .finding.m i { background: var(--med); box-shadow: 0 0 12px rgba(255,181,71,.7); }
+    .finding.p i { background: var(--pass); }
+    .finding b { display: block; font-weight: 500; font-size: 14px; }
+    .finding span { display: block; font-size: 12px; color: var(--faint); font-family: ui-monospace, "SF Mono", Menlo, monospace; }
+    .finding em { font-style: normal; font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--faint); }
+    .finding.h em { color: var(--high); } .finding.m em { color: var(--med); } .finding.p em { color: var(--pass); }
+    .report-foot { padding: 12px 22px; border-top: 1px solid var(--line); font-size: 12px; color: var(--faint); }
+
+    /* Checks grid */
+    .checks { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 48px; }
+    .check {
+      position: relative; padding: 28px; border-radius: 18px;
+      border: 1px solid var(--line); background: var(--card); overflow: hidden;
+      transition: transform .35s ease, border-color .35s ease;
+    }
+    .check::before {
+      content: ""; position: absolute; inset: auto -40% -60% auto; width: 220px; height: 220px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(230,25,125,.22), transparent 70%);
+      opacity: 0; transition: opacity .35s ease;
+    }
+    .check:hover { transform: translateY(-4px); border-color: rgba(230,25,125,.35); }
+    .check:hover::before { opacity: 1; }
+    .check .ic {
+      width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; margin-bottom: 20px;
+      background: rgba(230,25,125,.1); border: 1px solid rgba(230,25,125,.28); color: var(--pink-hot);
+    }
+    .check .ic svg { width: 20px; height: 20px; }
+    .check h3 { margin: 0 0 8px; font-family: var(--display); font-weight: 600; font-size: 17px; line-height: 1.35; }
+    .check p { margin: 0; color: var(--muted); font-size: 15px; }
+
+    /* Why band */
+    .why {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start;
+      padding: 56px; border-radius: 28px; border: 1px solid var(--line);
+      background:
+        radial-gradient(80% 120% at 100% 0%, rgba(230,25,125,.16), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.01));
+    }
+    .why p { margin: 0 0 16px; color: var(--muted); font-size: 17px; }
+    .why p:last-child { margin-bottom: 0; }
+    .why p strong { color: var(--text); font-weight: 500; }
+
+    /* Open source */
+    .oss { text-align: center; }
+    .oss .section-lead { margin-inline: auto; }
+    .pills { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin: 32px 0 36px; }
+    .pill {
+      padding: 9px 16px; border-radius: 999px; border: 1px solid var(--line); background: var(--card);
+      font-size: 14px; color: var(--muted);
+    }
+    .pill b { color: var(--text); font-weight: 600; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 22px; border-radius: 12px; text-decoration: none;
+      font-weight: 600; font-size: 15px;
+      color: #fff; background: linear-gradient(135deg, var(--pink), #b3105f);
+      box-shadow: 0 14px 40px -12px rgba(230,25,125,.75);
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 18px 50px -12px rgba(230,25,125,.95); }
+    .btn svg { width: 18px; height: 18px; }
+
+    /* ───────── Footer / Built by Iceberg ───────── */
+    footer { position: relative; overflow: hidden; isolation: isolate; padding: 120px 0 40px; border-top: 1px solid var(--line); }
+    footer::before {
+      content: ""; position: absolute; inset: 0; z-index: -1;
+      background:
+        radial-gradient(50% 70% at 50% 110%, rgba(230,25,125,.35), transparent 70%),
+        linear-gradient(180deg, var(--bg), #0d0610);
+    }
+    .builtby { text-align: center; }
+    .builtby .label { font-size: 12px; letter-spacing: .32em; text-transform: uppercase; color: var(--faint); }
+    .iceberg-lockup { display: inline-flex; flex-direction: column; align-items: center; margin-top: 32px; text-decoration: none; }
+    .iceberg-lockup svg { width: 64px; height: 58px; filter: drop-shadow(0 0 22px rgba(230,25,125,.5)); }
+    .iceberg-lockup .name {
+      margin-top: 22px; font-family: var(--display); font-weight: 600;
+      font-size: clamp(30px, 5vw, 46px); letter-spacing: .24em; margin-right: -.24em; line-height: 1;
+    }
+    .iceberg-lockup .tag {
+      margin-top: 16px; font-size: clamp(10px, 1.1vw, 12px); font-weight: 500;
+      letter-spacing: .42em; margin-right: -.42em; text-transform: uppercase; color: rgba(246,243,248,.82);
+    }
+    .builtby .about { margin: 36px auto 0; max-width: 560px; color: var(--muted); font-size: 15px; }
+    .builtby .about b { color: var(--text); font-weight: 600; }
+    .legal {
+      margin-top: 90px; padding-top: 24px; border-top: 1px solid var(--line);
+      display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+      font-size: 13px; color: var(--faint);
+    }
+    .legal a { text-decoration: none; } .legal a:hover { color: var(--text); }
+
+    /* Reveal */
+    .js .reveal { opacity: 0; transform: translateY(24px); transition: opacity .9s ease, transform .9s cubic-bezier(.2,.7,.2,1); }
+    .js .reveal.in { opacity: 1; transform: none; }
+    .hero-inner > * { animation: rise 1.1s cubic-bezier(.2,.7,.2,1) both; }
+    .hero-inner > *:nth-child(2) { animation-delay: .1s; }
+    .hero-inner > *:nth-child(3) { animation-delay: .2s; }
+    .hero-inner > *:nth-child(4) { animation-delay: .3s; }
+    .hero-inner > *:nth-child(5) { animation-delay: .4s; }
+    .hero-inner > *:nth-child(6) { animation-delay: .5s; }
+    .hero-inner > *:nth-child(7) { animation-delay: .6s; }
+    @keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      .js .reveal { opacity: 1; transform: none; }
+    }
+
+    /* ───────── Responsive ───────── */
+    @media (max-width: 960px) {
+      .how, .why { grid-template-columns: 1fr; gap: 40px; }
+      .checks { grid-template-columns: repeat(2, 1fr); }
+      .why { padding: 36px; }
+    }
+    @media (max-width: 640px) {
+      section { padding: 80px 0; }
+      .hero { padding: 110px 0 170px; }
+      .initiative .long { display: none; }
+      .brand-mini span { display: none; }
+      .soon { margin-bottom: 30px; }
+      .mark { width: 72px; height: 83px; }
+      .wordmark { letter-spacing: .12em; margin-right: -.12em; }
+      .slogan { letter-spacing: .2em; }
+      .scanner { flex-direction: column; }
+      .scanner button { width: 100%; }
+      .checks { grid-template-columns: 1fr; }
+      .why { padding: 26px 20px; border-radius: 20px; }
+      .report-body { padding: 18px 16px 14px; }
+      .finding { grid-template-columns: 10px 1fr; }
+      .finding em { grid-column: 2; }
+      .peaks { width: 150vw; right: -60vw; top: -4%; }
+      footer { padding-top: 90px; }
+      .legal { margin-top: 64px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Reusable symbols -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <linearGradient id="mw-grad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#ff4fa6" />
+        <stop offset="1" stop-color="#d0126f" />
+      </linearGradient>
+      <!-- Iceberg peak -->
+      <symbol id="iceberg-peak" viewBox="0 0 110 100">
+        <polygon points="55,0 110,100 84,100 55,46 26,100 0,100" fill="#e6197d" />
+      </symbol>
+      <!-- Mercury Ward mark: Iceberg peak guarded by a shield -->
+      <symbol id="mw-mark" viewBox="0 0 120 138">
+        <path d="M60 3 L114 21 V64 C114 99 91 123 60 135 C29 123 6 99 6 64 V21 Z"
+              fill="rgba(230,25,125,0.07)" stroke="url(#mw-grad)" stroke-width="5" stroke-linejoin="round" />
+        <path d="M60 15 L102 29.5 V64 C102 92 84 111 60 121.5 C36 111 18 92 18 64 V29.5 Z"
+              fill="none" stroke="rgba(255,79,166,0.28)" stroke-width="1.5" stroke-linejoin="round" />
+        <polygon points="60,36 95,98 79,98 60,64 41,98 25,98" fill="url(#mw-grad)" />
+        <circle cx="60" cy="26" r="3.2" fill="#ffd2e7" />
+      </symbol>
+    </defs>
+  </svg>
+
+  <header class="topbar">
+    <div class="wrap">
+      <a class="brand-mini" href="#top" aria-label="Mercury Ward">
+        <svg aria-hidden="true"><use href="#mw-mark" /></svg>
+        <span>Mercury Ward</span>
+      </a>
+      <a class="initiative" href="#built-by">
+        <svg aria-hidden="true"><use href="#iceberg-peak" /></svg>
+        <span><span class="long">An </span><b>Iceberg X</b><span class="long"> initiative</span></span>
+      </a>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- ───────── HERO ───────── -->
+    <div class="hero">
+      <div class="hero-bg" aria-hidden="true">
+        <div class="base"></div>
+
+        <svg class="peaks" viewBox="0 0 1000 900" fill="none">
+          <defs>
+            <linearGradient id="peak-fill" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#ff2f93" stop-opacity=".95" />
+              <stop offset=".55" stop-color="#c3106a" stop-opacity=".45" />
+              <stop offset="1" stop-color="#5a0631" stop-opacity="0" />
+            </linearGradient>
+            <linearGradient id="peak-edge" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#ffb3d8" stop-opacity=".9" />
+              <stop offset="1" stop-color="#ff3d9a" stop-opacity="0" />
+            </linearGradient>
+            <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="6" />
+            </filter>
+            <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="28" />
+            </filter>
+          </defs>
+          <!-- glow behind -->
+          <polygon points="560,40 1000,860 860,860 560,300 260,860 120,860" fill="#e6197d" opacity=".35" filter="url(#glow)" />
+          <!-- outer peak band -->
+          <polygon points="560,40 1000,860 860,860 560,300 260,860 120,860" fill="url(#peak-fill)" opacity=".85" />
+          <polyline points="120,860 560,40 1000,860" stroke="url(#peak-edge)" stroke-width="2" filter="url(#soft)" />
+          <!-- inner echo -->
+          <polyline points="300,860 560,375 820,860" stroke="url(#peak-edge)" stroke-width="1.5" opacity=".55" />
+        </svg>
+
+        <svg class="horizon" viewBox="0 0 1600 420" preserveAspectRatio="none" fill="none">
+          <defs>
+            <linearGradient id="hill" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#1a0c18" />
+              <stop offset="1" stop-color="#060408" />
+            </linearGradient>
+            <linearGradient id="streak-a" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#ff3d9a" stop-opacity="0" />
+              <stop offset=".35" stop-color="#ff3d9a" stop-opacity=".7" />
+              <stop offset=".75" stop-color="#ffd2e7" stop-opacity="1" />
+              <stop offset="1" stop-color="#ff3d9a" stop-opacity="0" />
+            </linearGradient>
+            <linearGradient id="streak-b" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#e6197d" stop-opacity="0" />
+              <stop offset=".5" stop-color="#e6197d" stop-opacity=".8" />
+              <stop offset="1" stop-color="#e6197d" stop-opacity="0" />
+            </linearGradient>
+            <linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#2a0a1e" stop-opacity=".9" />
+              <stop offset="1" stop-color="#050306" />
+            </linearGradient>
+            <radialGradient id="sun" cx=".88" cy=".38" r=".4">
+              <stop offset="0" stop-color="#ffd2e7" stop-opacity=".9" />
+              <stop offset=".25" stop-color="#ff3d9a" stop-opacity=".55" />
+              <stop offset="1" stop-color="#e6197d" stop-opacity="0" />
+            </radialGradient>
+            <filter id="blur4"><feGaussianBlur stdDeviation="4" /></filter>
+            <filter id="blur14"><feGaussianBlur stdDeviation="14" /></filter>
+          </defs>
+
+          <rect x="0" y="0" width="1600" height="420" fill="url(#sun)" />
+          <!-- distant hills -->
+          <path d="M0 150 C 260 110, 520 120, 760 140 S 1180 90, 1400 120 S 1560 140, 1600 130 V 230 H 0 Z" fill="url(#hill)" opacity=".85" />
+          <path d="M0 190 C 300 160, 640 175, 900 160 S 1350 150, 1600 175 V 240 H 0 Z" fill="#0b0710" />
+          <!-- water -->
+          <rect x="0" y="228" width="1600" height="192" fill="url(#water)" />
+          <!-- light streaks -->
+          <g class="streak">
+            <path d="M-50 232 C 400 214, 900 220, 1650 205" stroke="url(#streak-a)" stroke-width="3" />
+            <path d="M-50 232 C 400 214, 900 220, 1650 205" stroke="url(#streak-a)" stroke-width="10" filter="url(#blur4)" opacity=".7" />
+          </g>
+          <g class="streak s2">
+            <path d="M-80 262 C 380 248, 980 270, 1650 238" stroke="url(#streak-b)" stroke-width="2" opacity=".8" />
+            <path d="M-80 262 C 380 248, 980 270, 1650 238" stroke="url(#streak-b)" stroke-width="12" filter="url(#blur14)" opacity=".5" />
+          </g>
+          <g class="streak s3">
+            <path d="M200 340 C 700 300, 1300 300, 1650 250" stroke="url(#streak-b)" stroke-width="1.5" opacity=".55" />
+            <path d="M600 410 C 1100 380, 1450 330, 1600 300" stroke="url(#streak-a)" stroke-width="1.5" opacity=".5" />
+          </g>
+          <!-- reflections -->
+          <g filter="url(#blur4)" opacity=".55">
+            <rect x="1380" y="240" width="10" height="120" fill="#ff3d9a" opacity=".6" />
+            <rect x="1420" y="240" width="5" height="90" fill="#ffd2e7" opacity=".5" />
+            <rect x="1260" y="245" width="6" height="70" fill="#ff3d9a" opacity=".45" />
+            <rect x="420" y="245" width="6" height="60" fill="#e6197d" opacity=".35" />
+          </g>
+        </svg>
+
+        <div class="grain"></div>
+      </div>
+
+      <div class="hero-inner">
+        <div class="soon"><i></i>Coming soon</div>
+        <svg class="mark" role="img" aria-label="Mercury Ward logo"><use href="#mw-mark" /></svg>
+        <h1 class="wordmark">Mercury Ward</h1>
+        <p class="slogan">A free data privacy awareness initiative for the UK estate agency industry</p>
+        <p class="lead">
+          Enter an estate agency website. Mercury Ward will watch every request it makes and show you,
+          <strong>in plain English</strong>, where visitor data is going, who is receiving it, and what to fix.
+        </p>
+        <form class="scanner" onsubmit="return false" aria-describedby="scanner-note">
+          <label for="url">Estate agency website address</label>
+          <div class="field">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z"/></svg>
+            <input id="url" type="url" placeholder="https://www.your-agency.co.uk" disabled />
+          </div>
+          <button type="button" disabled>Scan · Coming soon</button>
+        </form>
+        <div id="scanner-note" class="scanner-note">Free for every UK estate agency. No sign-up, no sales call.</div>
+      </div>
+
+      <a class="scroll-cue" href="#how" aria-label="Scroll to learn more">Discover<span></span></a>
+    </div>
+
+    <!-- ───────── HOW IT WILL WORK ───────── -->
+    <section id="how">
+      <div class="wrap how">
+        <div class="reveal">
+          <div class="eyebrow">How it will work</div>
+          <h2>See what your website <em>quietly shares</em>.</h2>
+          <p class="section-lead">
+            Most agency websites run dozens of third-party scripts: portals, CRMs, chat widgets, analytics and ad platforms.
+            Each one can see your visitors. Mercury Ward makes that traffic visible.
+          </p>
+          <ol class="steps">
+            <li class="step">
+              <div class="n">01</div>
+              <div><h3>Enter a URL</h3><p>Point Mercury Ward at any estate agency website. Yours, or one you're about to work with.</p></div>
+            </li>
+            <li class="step">
+              <div class="n">02</div>
+              <div><h3>We inspect the network</h3><p>A real browser loads the site, then records every cookie, script and outbound request before and after consent.</p></div>
+            </li>
+            <li class="step">
+              <div class="n">03</div>
+              <div><h3>Get a clear report</h3><p>Findings ranked by risk, explained without jargon, with practical next steps you can hand to your web team.</p></div>
+            </li>
+          </ol>
+        </div>
+
+        <div class="report reveal" aria-label="Illustrative example of a Mercury Ward report">
+          <div class="report-head">
+            <span class="dots"><i></i><i></i><i></i></span>
+            <span>mercury-ward / report</span>
+            <span class="tag">Illustrative</span>
+          </div>
+          <div class="report-body">
+            <div class="report-url">
+              <strong>www.example-estates.co.uk</strong>
+              <small>142 requests · 31 domains</small>
+            </div>
+            <div class="chips">
+              <span class="chip h">2 high</span>
+              <span class="chip m">1 medium</span>
+              <span class="chip p">6 passed</span>
+            </div>
+            <div class="finding h"><i></i><div><b>Ad pixel fires before cookie consent</b><span>tracker.example-ads.com · on page load</span></div><em>High</em></div>
+            <div class="finding h"><i></i><div><b>Enquiry email sent to analytics in URL</b><span>valuation form · query string</span></div><em>High</em></div>
+            <div class="finding m"><i></i><div><b>Session replay may record form inputs</b><span>third-party script · all pages</span></div><em>Medium</em></div>
+            <div class="finding p"><i></i><div><b>"Reject all" offered on cookie banner</b><span>consent banner · first layer</span></div><em>Pass</em></div>
+            <div class="finding p"><i></i><div><b>All forms submitted over HTTPS</b><span>4 forms checked</span></div><em>Pass</em></div>
+          </div>
+          <div class="report-foot">Example findings for illustration only. Not a real website.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────── WHAT IT CHECKS ───────── -->
+    <section id="checks" style="padding-top:40px">
+      <div class="wrap">
+        <div class="reveal">
+          <div class="eyebrow">What it will look for</div>
+          <h2>Built around <em>UK GDPR</em> and <em>PECR</em>.</h2>
+          <p class="section-lead">The privacy mistakes we see most often on property websites, checked automatically.</p>
+        </div>
+
+        <div class="checks">
+          <article class="check reveal">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/><circle cx="12" cy="12" r="5"/></svg></div>
+            <h3>Trackers before consent</h3>
+            <p>Analytics, ad pixels and cookies that load before a visitor has said yes.</p>
+          </article>
+          <article class="check reveal">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 7h10M4 12h16M4 17h7"/><circle cx="18" cy="7" r="2"/></svg></div>
+            <h3>Personal data in requests</h3>
+            <p>Names, emails, phone numbers or postcodes leaking into URLs, headers or third-party payloads.</p>
+          </article>
+          <article class="check reveal">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 15h18M8 19v-4"/></svg></div>
+            <h3>Cookie banner quality</h3>
+            <p>Is rejecting as easy as accepting? Are choices actually respected after the click?</p>
+          </article>
+          <article class="check reveal">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/></svg></div>
+            <h3>Session replay &amp; heatmaps</h3>
+            <p>Tools that record keystrokes and form fields on valuation, viewing and mortgage forms.</p>
+          </article>
+          <article class="check reveal">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></div>
+            <h3>Transport security</h3>
+            <p>Forms posting over HTTP, mixed content, missing security headers and weak cookie flags.</p>
+          </article>
+          <article class="check reveal">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 13h6M10 17h4"/></svg></div>
+            <h3>Transparency signals</h3>
+            <p>A findable privacy notice, a cookie policy that matches reality, and clear controller details.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────── WHY ───────── -->
+    <section id="why">
+      <div class="wrap">
+        <div class="why reveal">
+          <div>
+            <div class="eyebrow">Why estate agencies</div>
+            <h2>Trust is the <em>whole business</em>.</h2>
+          </div>
+          <div>
+            <p>Every day, agencies collect some of the most personal data there is: <strong>who is moving, where, when, and what they can afford.</strong></p>
+            <p>Yet much of what a website shares happens out of sight, inside scripts the agency never wrote and rarely reviews.</p>
+            <p>Mercury Ward exists to raise awareness across the industry. It is free, it is open, and it is designed to help, not to name and shame.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────── OPEN SOURCE ───────── -->
+    <section id="open-source" class="oss" style="padding-top:40px">
+      <div class="wrap reveal">
+        <div class="eyebrow">Open source</div>
+        <h2>Free. Open. <em>Built in public.</em></h2>
+        <p class="section-lead">Every check Mercury Ward runs will be open for anyone to read, question and improve. Agencies, developers and privacy professionals are all welcome.</p>
+        <div class="pills">
+          <span class="pill"><b>100%</b> free</span>
+          <span class="pill"><b>Open</b> source</span>
+          <span class="pill">Made for the <b>UK</b> property sector</span>
+        </div>
+        <a class="btn" href="https://github.com/Iceberg-Digital-Team/mercury-ward" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.42-2.7 5.39-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z"/></svg>
+          Follow on GitHub
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- ───────── BUILT BY ICEBERG DIGITAL ───────── -->
+  <footer id="built-by">
+    <div class="wrap">
+      <div class="builtby reveal">
+        <div class="label">Designed &amp; built by</div>
+        <div class="iceberg-lockup" aria-label="Iceberg Digital — Elevating human potential">
+          <svg aria-hidden="true"><use href="#iceberg-peak" /></svg>
+          <div class="name">ICEBERG</div>
+          <div class="tag">Elevating human potential</div>
+        </div>
+        <p class="about">Mercury Ward is an <b>Iceberg X</b> initiative by <b>Iceberg Digital</b>, giving back to the industry we work alongside every day.</p>
+      </div>
+
+      <div class="legal">
+        <span>© <span id="yr">2026</span> Iceberg Digital. Mercury Ward is an Iceberg X project.</span>
+        <span>An awareness tool. Not legal advice.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.documentElement.classList.add('js');
+    document.getElementById('yr').textContent = new Date().getFullYear();
+    (function () {
+      var els = document.querySelectorAll('.reveal');
+      if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('in'); }); return; }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+      els.forEach(function (e, i) { e.style.transitionDelay = (e.classList.contains('check') ? (i % 3) * 90 : 0) + 'ms'; io.observe(e); });
+    })();
+  </script>
+</body>
+</html>
