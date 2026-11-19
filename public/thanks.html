@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Scan started · Mercury Ward</title>
+  <meta name="robots" content="noindex" />
+  <meta name="theme-color" content="#060509" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #060509; --pink: #e6197d; --pink-hot: #ff3d9a;
+      --text: #f6f3f8; --muted: rgba(246,243,248,.66); --faint: rgba(246,243,248,.4);
+      --line: rgba(255,255,255,.08);
+      --display: "Poppins", system-ui, sans-serif;
+      --body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100svh; display: grid; place-items: center; padding: 32px 16px;
+      color: var(--text); font: 16px/1.6 var(--body); -webkit-font-smoothing: antialiased;
+      background:
+        radial-gradient(55% 55% at 92% 8%, rgba(230,25,125,.35), transparent 70%),
+        radial-gradient(60% 40% at 10% 100%, rgba(122,10,67,.3), transparent 70%),
+        var(--bg);
+    }
+    main { max-width: 560px; text-align: center; }
+    .mark { width: 72px; height: 83px; margin: 0 auto 28px; display: block; filter: drop-shadow(0 0 24px rgba(230,25,125,.55)); }
+    h1 { margin: 0; font: 600 clamp(28px, 6vw, 40px)/1.15 var(--display); }
+    p { margin: 18px 0 0; color: var(--muted); }
+    .card {
+      margin-top: 32px; padding: 20px 22px; text-align: left;
+      border: 1px solid var(--line); border-radius: 16px; background: rgba(255,255,255,.03);
+    }
+    .card ol { margin: 0; padding-left: 20px; color: var(--muted); }
+    .card li + li { margin-top: 8px; }
+    .card b { color: var(--text); font-weight: 600; }
+    a.back { display: inline-block; margin-top: 32px; color: var(--pink-hot); text-decoration: none; font-weight: 600; }
+    a.back:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <main>
+    <svg class="mark" viewBox="0 0 120 138" role="img" aria-label="Mercury Ward logo">
+      <defs>
+        <linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff4fa6" /><stop offset="1" stop-color="#d0126f" /></linearGradient>
+      </defs>
+      <path d="M60 3 L114 21 V64 C114 99 91 123 60 135 C29 123 6 99 6 64 V21 Z" fill="rgba(230,25,125,0.07)" stroke="url(#g)" stroke-width="5" stroke-linejoin="round" />
+      <polygon points="60,36 95,98 79,98 60,64 41,98 25,98" fill="url(#g)" />
+      <circle cx="60" cy="26" r="3.2" fill="#ffd2e7" />
+    </svg>
+    <h1>Your scan has started</h1>
+    <p>We are reading every page in your website&rsquo;s sitemap. You can close this page.</p>
+    <div class="card">
+      <ol>
+        <li>The scan takes about <b>one second per page</b>, so a large site can take a while.</li>
+        <li>When it finishes we email you a <b>report.csv</b> with every possible name we found and where.</li>
+        <li>If nothing turns up, or we cannot read the site, we email you that too. Check your spam folder if nothing arrives.</li>
+      </ol>
+    </div>
+    <a class="back" href="/">&larr; Back to Mercury Ward</a>
+  </main>
+</body>
+</html>

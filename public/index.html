@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Mercury Ward — Coming Soon</title>
+  <title>Mercury Ward</title>
   <meta name="description" content="Mercury Ward is a free, open-source data privacy awareness initiative for the UK estate agency industry. Built by Iceberg Digital as part of Iceberg X." />
   <meta name="theme-color" content="#060509" />
-  <meta property="og:title" content="Mercury Ward — Coming Soon" />
+  <meta property="og:title" content="Mercury Ward" />
   <meta property="og:description" content="A free data privacy awareness initiative for the UK estate agency industry. Built by Iceberg Digital." />
   <meta property="og:type" content="website" />
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
@@ -151,34 +151,45 @@
       text-wrap: balance;
     }
 
-    /* Scanner mock */
+    /* Scan form */
     .scanner {
-      margin: 48px auto 0; max-width: 560px;
-      display: flex; gap: 8px; padding: 8px;
-      border-radius: 16px;
+      margin: 44px auto 0; max-width: 620px; text-align: left;
+      display: grid; gap: 14px; padding: 20px;
+      border-radius: 18px;
       border: 1px solid var(--line);
       background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
       backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
       box-shadow: 0 20px 60px -20px rgba(230,25,125,.35), inset 0 1px 0 rgba(255,255,255,.06);
     }
-    .scanner label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
-    .scanner .field {
-      flex: 1; min-width: 0; display: flex; align-items: center; gap: 10px;
-      padding: 0 12px; color: var(--faint);
+    .scanner .row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .scanner .field { display: grid; gap: 6px; min-width: 0; }
+    .scanner .field > span { font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+    .scanner .field > span small { font-weight: 500; letter-spacing: 0; text-transform: none; color: var(--faint); font-size: 12px; }
+    .scanner input, .scanner textarea {
+      width: 100%; min-width: 0; height: 46px; padding: 0 14px;
+      border: 1px solid rgba(255,255,255,.12); border-radius: 10px; outline: 0;
+      background: rgba(0,0,0,.28); color: var(--text); font: inherit; font-size: 15px;
+      transition: border-color .2s ease, box-shadow .2s ease;
     }
-    .scanner .field svg { flex: none; width: 16px; height: 16px; }
-    .scanner input {
-      flex: 1; min-width: 0; height: 44px; border: 0; outline: 0; background: transparent;
-      color: var(--text); font: inherit; font-size: 15px;
-    }
-    .scanner input::placeholder { color: var(--faint); }
+    .scanner textarea { height: auto; min-height: 88px; padding: 10px 14px; resize: vertical; line-height: 1.5; }
+    .scanner input:focus, .scanner textarea:focus { border-color: rgba(255,61,154,.7); box-shadow: 0 0 0 3px rgba(230,25,125,.2); }
+    .scanner input::placeholder, .scanner textarea::placeholder { color: var(--faint); }
+    .scanner details summary { cursor: pointer; font-size: 14px; color: var(--muted); }
+    .scanner details summary:hover { color: var(--text); }
+    .scanner details[open] summary { margin-bottom: 10px; }
+    .scanner .hint { margin: 6px 0 0; font-size: 13px; color: var(--faint); }
+    .scanner .consent { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; color: var(--muted); cursor: pointer; }
+    .scanner .consent input { flex: none; width: 18px; height: 18px; margin: 2px 0 0; accent-color: var(--pink); }
+    .scanner .hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
     .scanner button {
-      flex: none; height: 44px; padding: 0 18px; border: 0; border-radius: 10px;
-      font: 600 14px/1 var(--body); color: #fff; letter-spacing: .02em;
+      height: 50px; border: 0; border-radius: 12px; cursor: pointer;
+      font: 600 15px/1 var(--body); color: #fff; letter-spacing: .02em;
       background: linear-gradient(135deg, var(--pink), #b3105f);
-      opacity: .9; cursor: not-allowed;
       box-shadow: 0 8px 24px -8px rgba(230,25,125,.8);
+      transition: transform .2s ease, box-shadow .2s ease;
     }
+    .scanner button:hover { transform: translateY(-1px); box-shadow: 0 14px 34px -10px rgba(230,25,125,.95); }
+    .scanner button:disabled { opacity: .6; cursor: wait; transform: none; }
     .scanner-note { margin-top: 12px; font-size: 13px; color: var(--faint); }
 
     .scroll-cue {
@@ -387,8 +398,8 @@
       .mark { width: 72px; height: 83px; }
       .wordmark { letter-spacing: .12em; margin-right: -.12em; }
       .slogan { letter-spacing: .2em; }
-      .scanner { flex-direction: column; }
-      .scanner button { width: 100%; }
+      .scanner { padding: 16px; }
+      .scanner .row { grid-template-columns: 1fr; }
       .checks { grid-template-columns: 1fr; }
       .why { padding: 26px 20px; border-radius: 20px; }
       .report-body { padding: 18px 16px 14px; }
@@ -532,19 +543,45 @@
       </div>
 
       <div class="hero-inner">
-        <div class="soon"><i></i>Coming soon</div>
+        <div class="soon"><i></i>Early preview</div>
         <svg class="mark" role="img" aria-label="Mercury Ward logo"><use href="#mw-mark" /></svg>
         <h1 class="wordmark">Mercury Ward</h1>
         <p class="slogan">A free data privacy awareness initiative for the UK estate agency industry</p>
-        <form class="scanner" onsubmit="return false" aria-describedby="scanner-note">
-          <label for="url">Estate agency website address</label>
-          <div class="field">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z"/></svg>
-            <input id="url" type="url" placeholder="https://www.your-agency.co.uk" disabled />
+        <form class="scanner" method="post" action="/scan" aria-describedby="scanner-note">
+          <label class="field">
+            <span>Agency website</span>
+            <input name="domain" type="text" inputmode="url" autocomplete="url" placeholder="www.your-agency.co.uk" required maxlength="253" />
+          </label>
+          <div class="row">
+            <label class="field">
+              <span>Your name</span>
+              <input name="full_name" type="text" autocomplete="name" placeholder="Jane Doe" maxlength="200" />
+            </label>
+            <label class="field">
+              <span>Company</span>
+              <input name="company" type="text" autocomplete="organization" placeholder="Your Agency Ltd" maxlength="200" />
+            </label>
           </div>
-          <button type="button" disabled>Scan · Coming soon</button>
+          <label class="field">
+            <span>Email for the report</span>
+            <input name="email" type="email" autocomplete="email" placeholder="you@your-agency.co.uk" required maxlength="254" />
+          </label>
+          <details>
+            <summary>Names to ignore (optional)</summary>
+            <label class="field">
+              <span>One per line <small>for example your own staff</small></span>
+              <textarea name="ignore" rows="3" placeholder="Jane Doe&#10;John Smith"></textarea>
+            </label>
+            <p class="hint">Used for this scan only and never stored.</p>
+          </details>
+          <label class="hp" aria-hidden="true">Website <input name="website" type="text" tabindex="-1" autocomplete="off" /></label>
+          <label class="consent">
+            <input name="consent" type="checkbox" value="1" required />
+            <span>I work for or represent this agency and I am allowed to request a scan of its website.</span>
+          </label>
+          <button type="submit">Scan my website</button>
         </form>
-        <div id="scanner-note" class="scanner-note">Free for every UK estate agency.</div>
+        <div id="scanner-note" class="scanner-note">Free for every UK estate agency. This first version checks every page in your sitemap for people&rsquo;s names and emails you a CSV report. We don&rsquo;t keep what we find.</div>
       </div>
 
       <a class="scroll-cue" href="#how" aria-label="Scroll to learn more">Discover<span></span></a>
@@ -702,6 +739,12 @@
   <script>
     document.documentElement.classList.add('js');
     document.getElementById('yr').textContent = new Date().getFullYear();
+    document.querySelector('.scanner').addEventListener('submit', function (e) {
+      var b = e.target.querySelector('button'); b.disabled = true; b.textContent = 'Starting scan…';
+    });
+    window.addEventListener('pageshow', function () {
+      var b = document.querySelector('.scanner button'); b.disabled = false; b.textContent = 'Scan my website';
+    });
     (function () {
       var els = document.querySelectorAll('.reveal');
       if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('in'); }); return; }
