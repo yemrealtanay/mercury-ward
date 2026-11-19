@@ -15,6 +15,8 @@ const DB_PATH = process.env.DB_PATH
   || (volume ? path.join(volume, 'mercuryward.db') : path.join(ROOT, 'data', 'mercuryward.db'));
 const DELAY_MS = process.env.REQUEST_DELAY_MS ? Number(process.env.REQUEST_DELAY_MS) : 1000;
 const MAX_QUEUE = Number(process.env.MAX_QUEUE || 20);
+const SCAN_CONCURRENCY = Math.max(1, Number(process.env.SCAN_CONCURRENCY || 3));
+const ONE_SCAN_PER_SITE = process.env.ONE_SCAN_PER_SITE === 'true';
 // 0 = sınır yok (test için). Varsayılan: IP ve e-posta başına saatte 5 tarama.
 const RATE_LIMIT_PER_HOUR = process.env.RATE_LIMIT_PER_HOUR ? Number(process.env.RATE_LIMIT_PER_HOUR) : 5;
 
@@ -97,15 +99,36 @@ async function runScan({ id, email, fullName, domain, ignore }) {
   }
 }
 
-// Taramalar tek tek, sırayla çalışır.
-let queue = Promise.resolve();
-let waiting = 0;
+// En fazla SCAN_CONCURRENCY tarama aynı anda çalışır.
+// ONE_SCAN_PER_SITE=true ise aynı site aynı anda iki kez taranmaz (hedef siteye yük binmesin diye);
+// o site için gelen ikinci iş sırada bekler. Test sürecinde kapalı.
+const pending = [];
+const activeSites = new Set();
+let running = 0;
+const queued = () => pending.length + running;
+
+function pump() {
+  while (running < SCAN_CONCURRENCY) {
+    const i = pending.findIndex((entry) => !activeSites.has(entry.key));
+    if (i === -1) return;
+    const [{ key, job }] = pending.splice(i, 1);
+    running++;
+    activeSites.add(key);
+    runScan(job)
+      .catch((e) => console.error(e))
+      .finally(() => {
+        running--;
+        activeSites.delete(key);
+        pump();
+      });
+  }
+}
+
 function enqueue(job) {
-  waiting++;
-  queue = queue
-    .then(() => runScan(job))
-    .catch((e) => console.error(e))
-    .finally(() => { waiting--; });
+  // Kısıt kapalıyken her tarama kendi anahtarını alır, yani aynı site paralel taranabilir.
+  const key = ONE_SCAN_PER_SITE ? job.domain.replace(/^www\./, '') : `scan:${job.id}`;
+  pending.push({ key, job });
+  pump();
 }
 
 // ───────── Basit, bellek içi rate limit ─────────
@@ -142,7 +165,7 @@ app.disable('x-powered-by');
 app.use(express.urlencoded({ extended: false, limit: '20kb' }));
 app.use(express.static(path.join(ROOT, 'public')));
 
-app.get('/healthz', (_req, res) => res.json({ ok: true, queue: waiting }));
+app.get('/healthz', (_req, res) => res.json({ ok: true, running, waiting: pending.length }));
 
 app.post('/scan', (req, res) => {
   const body = req.body || {};
@@ -162,7 +185,7 @@ app.post('/scan', (req, res) => {
   if (!body.consent) {
     return messagePage(res, 400, 'Please confirm', 'Please confirm that you are allowed to request a scan of this website.');
   }
-  if (waiting >= MAX_QUEUE) {
+  if (queued() >= MAX_QUEUE) {
     return messagePage(res, 503, 'We are busy', 'Lots of scans are running right now. Please try again in a little while.');
   }
   if (!allow(`ip:${req.ip}`) || !allow(`email:${email.toLowerCase()}`)) {
@@ -184,6 +207,6 @@ app.post('/scan', (req, res) => {
 
 const port = Number(process.env.PORT || 3000);
 app.listen(port, () => {
-  console.log(`Mercury Ward v1 on :${port} · db ${DB_PATH} · mail ${mailTransport}`);
+  console.log(`Mercury Ward v1 on :${port} · db ${DB_PATH} · mail ${mailTransport} · ${SCAN_CONCURRENCY} parallel scans`);
   if (mailTransport === 'console') console.warn('No RESEND_API_KEY or SMTP_HOST set: emails are only printed to the console.');
 });
