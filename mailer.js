@@ -53,6 +53,8 @@ function createSender() {
           signal: AbortSignal.timeout(20_000),
         });
         if (!res.ok) throw new Error(`SendGrid ${res.status}: ${(await res.text()).slice(0, 300)}`);
+        // Activity Feed'de bu ID ile aranabilir.
+        console.log(`[mail] SendGrid accepted (${res.status}) "${m.subject}" msg_id=${res.headers.get('x-message-id')}`);
       },
     };
   }
