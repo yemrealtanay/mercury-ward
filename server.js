@@ -15,7 +15,8 @@ const DB_PATH = process.env.DB_PATH
   || (volume ? path.join(volume, 'mercuryward.db') : path.join(ROOT, 'data', 'mercuryward.db'));
 const DELAY_MS = process.env.REQUEST_DELAY_MS ? Number(process.env.REQUEST_DELAY_MS) : 1000;
 const MAX_QUEUE = Number(process.env.MAX_QUEUE || 20);
-const RATE_LIMIT_PER_HOUR = Number(process.env.RATE_LIMIT_PER_HOUR || 5);
+// 0 = sınır yok (test için). Varsayılan: IP ve e-posta başına saatte 5 tarama.
+const RATE_LIMIT_PER_HOUR = process.env.RATE_LIMIT_PER_HOUR ? Number(process.env.RATE_LIMIT_PER_HOUR) : 5;
 
 // ───────── SQLite: yalnızca kayıt ve tarama özeti. Bulunan isimler ve ignore listesi yazılmaz. ─────────
 fs.mkdirSync(path.dirname(DB_PATH), { recursive: true });
@@ -53,10 +54,23 @@ async function runScan({ id, email, fullName, domain, ignore }) {
   let pages = 0;
   let scanned = 0;
   try {
-    const urls = await findPageUrls(domain);
+    // Sitemap yoksa (tek sayfalık küçük siteler) yalnızca ana sayfa taranır.
+    let source = 'sitemap';
+    let urls;
+    try {
+      urls = await findPageUrls(domain);
+    } catch (e) {
+      console.warn(`[scan ${id}] ${e.message}; falling back to the home page`);
+      source = 'homepage';
+      urls = [`https://${domain}/`];
+    }
     pages = urls.length;
-    console.log(`[scan ${id}] ${domain}: ${pages} URLs`);
-    for (const url of urls) {
+    const started = Date.now();
+    console.log(`[scan ${id}] ${domain}: ${pages} URLs (~${Math.ceil((pages * (DELAY_MS + 700)) / 60_000)} min)`);
+    for (const [i, url] of urls.entries()) {
+      if (i && i % 25 === 0) {
+        console.log(`[scan ${id}] ${i}/${pages} pages, ${hits.length} hits, ${Math.round((Date.now() - started) / 1000)}s`);
+      }
       try {
         const text = await pageText(url, domain);
         if (text !== null) {
@@ -68,7 +82,8 @@ async function runScan({ id, email, fullName, domain, ignore }) {
       }
       if (DELAY_MS) await sleep(DELAY_MS);
     }
-    await sendReport({ to: email, fullName, domain, pages, scanned, hits });
+    if (scanned === 0) throw new Error('No pages could be read');
+    await sendReport({ to: email, fullName, domain, source, pages, scanned, hits });
     finishScan.run('done', pages, scanned, hits.length, null, id);
     console.log(`[scan ${id}] done: ${scanned}/${pages} pages, ${hits.length} hits`);
   } catch (e) {
@@ -96,6 +111,7 @@ function enqueue(job) {
 // ───────── Basit, bellek içi rate limit ─────────
 const recent = new Map();
 function allow(key) {
+  if (!RATE_LIMIT_PER_HOUR) return true;
   const now = Date.now();
   const list = (recent.get(key) || []).filter((t) => now - t < 3_600_000);
   const ok = list.length < RATE_LIMIT_PER_HOUR;

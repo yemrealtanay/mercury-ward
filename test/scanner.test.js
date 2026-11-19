@@ -57,3 +57,22 @@ test('parseAddress isimli ve isimsiz adresleri ayırır', () => {
   assert.deepEqual(parseAddress('"Mercury Ward" <noreply@a.co.uk>'), { name: 'Mercury Ward', email: 'noreply@a.co.uk' });
   assert.deepEqual(parseAddress('noreply@a.co.uk'), { email: 'noreply@a.co.uk' });
 });
+
+test('HTML e-posta sayfadan gelen metni kaçırır ve isimleri toplar', async () => {
+  const { buildReport, topNames } = await import('../mailer.js');
+  const hits = [
+    { url: 'https://a.co.uk/', name: 'Neil King', count: 1, context: 'x' },
+    { url: 'https://a.co.uk/about', name: 'Neil King', count: 2, context: 'x' },
+    { url: 'https://a.co.uk/team', name: '<img src=x onerror=alert(1)> Smith', count: 1, context: 'x' },
+  ];
+  const { top, total } = topNames(hits);
+  assert.equal(total, 2);
+  assert.equal(top[0].name, 'Neil King');
+  assert.equal(top[0].badge, '2 pages');
+  const { html, text, attachments } = buildReport({ domain: 'a.co.uk', pages: 3, scanned: 3, hits });
+  assert.ok(!html.includes('<img'));
+  assert.ok(html.includes('&#60;img'));
+  assert.ok(text.includes('2 possible names'));
+  assert.equal(top[0].where, 'home page and 1 other page');
+  assert.equal(attachments[0].filename, 'report.csv');
+});

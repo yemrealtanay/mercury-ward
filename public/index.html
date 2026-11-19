@@ -161,6 +161,18 @@
       backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
       box-shadow: 0 20px 60px -20px rgba(230,25,125,.35), inset 0 1px 0 rgba(255,255,255,.06);
     }
+    .scanner .beta {
+      display: flex; gap: 12px; align-items: flex-start;
+      padding: 12px 14px; border-radius: 12px;
+      border: 1px solid rgba(230,25,125,.35); background: rgba(230,25,125,.08);
+      font-size: 14px; line-height: 1.5; color: var(--muted);
+    }
+    .scanner .beta .tag {
+      flex: none; margin-top: 1px; padding: 3px 8px; border-radius: 6px;
+      font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase;
+      color: #ffd2e7; background: rgba(230,25,125,.24);
+    }
+    .scanner .beta strong { color: var(--text); font-weight: 500; }
     .scanner .row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
     .scanner .field { display: grid; gap: 6px; min-width: 0; }
     .scanner .field > span { font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
@@ -543,11 +555,12 @@
       </div>
 
       <div class="hero-inner">
-        <div class="soon"><i></i>Early preview</div>
+        <div class="soon"><i></i>Beta</div>
         <svg class="mark" role="img" aria-label="Mercury Ward logo"><use href="#mw-mark" /></svg>
         <h1 class="wordmark">Mercury Ward</h1>
         <p class="slogan">A free data privacy awareness initiative for the UK estate agency industry</p>
         <form class="scanner" method="post" action="/scan" aria-describedby="scanner-note">
+          <p class="beta"><span class="tag">Beta</span><span>This beta does one thing: it reads every page in your sitemap and flags <strong>people&rsquo;s names</strong> published on your site, then emails you a CSV report. The full checks below arrive in version&nbsp;1.</span></p>
           <label class="field">
             <span>Agency website</span>
             <input name="domain" type="text" inputmode="url" autocomplete="url" placeholder="www.your-agency.co.uk" required maxlength="253" />
@@ -581,18 +594,19 @@
           </label>
           <button type="submit">Scan my website</button>
         </form>
-        <div id="scanner-note" class="scanner-note">Free for every UK estate agency. This first version checks every page in your sitemap for people&rsquo;s names and emails you a CSV report. We don&rsquo;t keep what we find.</div>
+        <div id="scanner-note" class="scanner-note">Free for every UK estate agency. We don&rsquo;t keep what we find.</div>
       </div>
 
       <a class="scroll-cue" href="#how" aria-label="Scroll to learn more">Discover<span></span></a>
     </div>
 
-    <!-- ───────── HOW IT WILL WORK ───────── -->
+    <!-- ───────── COMING IN VERSION 1 ───────── -->
     <section id="how">
       <div class="wrap how">
         <div class="reveal">
-          <div class="eyebrow">How it will work</div>
+          <div class="eyebrow">Coming in version 1</div>
           <h2>See what your website <em>quietly shares</em>.</h2>
+          <p class="section-lead">The beta reads the text on your pages. Version 1 goes further: it loads your site in a real browser and looks at everything it sends.</p>
           <ol class="steps">
             <li class="step">
               <div class="n">01</div>
@@ -609,11 +623,11 @@
           </ol>
         </div>
 
-        <div class="report reveal" aria-label="Illustrative example of a Mercury Ward report">
+        <div class="report reveal" aria-label="Illustrative example of a version 1 Mercury Ward report">
           <div class="report-head">
             <span class="dots"><i></i><i></i><i></i></span>
             <span>mercury-ward / report</span>
-            <span class="tag">Illustrative</span>
+            <span class="tag">Version 1 preview</span>
           </div>
           <div class="report-body">
             <div class="report-url">
@@ -640,9 +654,9 @@
     <section id="checks" style="padding-top:40px">
       <div class="wrap">
         <div class="reveal">
-          <div class="eyebrow">What it will look for</div>
+          <div class="eyebrow">What version 1 will look for</div>
           <h2>Built around <em>UK GDPR</em> and <em>PECR</em>.</h2>
-          <p class="section-lead">The privacy mistakes we see most often on property websites, checked automatically.</p>
+          <p class="section-lead">What&rsquo;s waiting for you in version 1: the privacy mistakes we see most often on property websites, checked automatically.</p>
         </div>
 
         <div class="checks">
