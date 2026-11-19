@@ -58,7 +58,7 @@ With no `SENDGRID_API_KEY`, `RESEND_API_KEY` or `SMTP_HOST`, emails are not sent
      - **SendGrid:** `SENDGRID_API_KEY` (a key with the *Mail Send* permission). `MAIL_FROM` must be a verified Single Sender or on an authenticated domain.
      - **Resend:** `RESEND_API_KEY`, with `MAIL_FROM` on a domain verified in Resend.
      - If several are set, SendGrid wins, then Resend, then `SMTP_*` (SMTP only works on the Pro plan).
-   - Optional: `MAIL_REPLY_TO`, `MAX_URLS`, `REQUEST_DELAY_MS`, `MAX_QUEUE`, `SCAN_CONCURRENCY`, `ONE_SCAN_PER_SITE`, `RATE_LIMIT_PER_HOUR` (`0` turns the limit off while testing), `PUBLIC_URL` (link for the "Scan another website" button; defaults to Railway's public domain).
+   - Optional: `MAIL_REPLY_TO`, `MAX_URLS`, `REQUEST_DELAY_MS`, `MAX_QUEUE`, `SCAN_CONCURRENCY`, `ONE_SCAN_PER_SITE`, `RATE_LIMIT_PER_HOUR` (`0` turns the limit off while testing), `PUBLIC_URL` (link for the "Scan another website" button; only used when it is on your own domain, never `*.up.railway.app`).
 4. Generate a public domain under the service's **Networking** settings.
 
 Up to `SCAN_CONCURRENCY` scans (default 3) run at the same time. Set `ONE_SCAN_PER_SITE=true` to stop the same site being scanned twice at once (off while testing). Run a single replica: the queue lives in memory. A scan running during a redeploy is lost and its row is marked `failed` when the app starts again.

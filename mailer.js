@@ -10,8 +10,17 @@ import { renderEmail } from './email-template.js';
 const FROM = process.env.MAIL_FROM || 'Mercury Ward <onboarding@resend.dev>';
 const REPLY_TO = process.env.MAIL_REPLY_TO || undefined;
 // E-postadaki "Scan another website" butonu için. Railway public domain'i otomatik verir.
-const SITE_URL = process.env.PUBLIC_URL
-  || (process.env.RAILWAY_PUBLIC_DOMAIN ? `https://${process.env.RAILWAY_PUBLIC_DOMAIN}` : null);
+// Yalnızca gönderen domain'le uyumlu bir adres (ör. https://mercuryward.co.uk) verilirse buton eklenir.
+// *.up.railway.app gibi paylaşımlı alan adları Microsoft'ta spam/phishing sinyali olduğu için kullanılmaz.
+const SITE_URL = (() => {
+  const url = process.env.PUBLIC_URL;
+  if (!url) return null;
+  try {
+    return /(^|\.)(railway\.app|up\.railway\.app)$/i.test(new URL(url).hostname) ? null : url;
+  } catch {
+    return null;
+  }
+})();
 const MAX_PREVIEW = 8;
 
 // "Mercury Ward <noreply@site.co.uk>" -> { name: 'Mercury Ward', email: 'noreply@site.co.uk' }
